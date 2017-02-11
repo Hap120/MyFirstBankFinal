@@ -9,22 +9,25 @@ namespace MyFirstBank
     public static class Bank //pascal case .. first letter of every word is up case as oppsed to camel case
     {
         //something that does not need to be seen is a variable as opposed to a property
-        private static List<Account> accounts = new List<Account>();
+        
 
 
         public static string Name { get; set; }
 
         public static Account CreateAccount(string emailAdddress, decimal amount)
         {
+            var db = new BankModel();
             var account = new Account(emailAdddress, amount);
-            accounts.Add(account);
+            db.Accounts.Add(account);
+            db.SaveChanges();
             return account;
         }
 
         public static void PrintAllAccounts(string emailAddress)
         {
             //a is jsut a variable and can be called whatever you want
-            foreach (var account in accounts.Where(a => a.EmailAddress == emailAddress))
+            var db = new BankModel();
+            foreach (var account in db.Accounts.Where(a => a.EmailAddress == emailAddress))
             {
                 Console.WriteLine($"Account number: {account.AccountNumber}, Balance: {account.Balance:C}");
             }
