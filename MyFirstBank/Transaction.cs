@@ -29,7 +29,6 @@ namespace MyFirstBank
 
         [ForeignKey("Account")]
         public int AccountNumber { get; set; }
-        public virtual ICollection<Transaction> Transactions { get; set; }
 
         public virtual Account Account { get; set; } // Account number is the primary key
 

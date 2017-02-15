@@ -23,13 +23,13 @@ namespace MyFirstBank
 
             public decimal Balance { get; private set; }
 
-          
-            #endregion
+            public virtual ICollection<Transaction> Transactions { get; set; }
+        #endregion
 
-            #region Methods
+        #region Methods
 
-            //constructor
-            public Account() : this("", 0.0M)
+        //constructor
+        public Account() : this("", 0.0M)
             {
                 // this.AccountNumber = ++lastAccountNumber;
             }
