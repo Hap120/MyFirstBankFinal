@@ -23,6 +23,28 @@ namespace MyFirstBank
             return account;
         }
 
+        public static void Deposit(int accountNumber, decimal amount)
+        {
+            var db = new BankModel();
+            var account = db.Accounts.Where(a => a.AccountNumber == accountNumber).FirstOrDefault();
+            if (account != null)
+            {
+                account.Deposit(amount);
+                db.Entry(account).State = System.Data.Entity.EntityState.Modified;
+
+                var transaction = new Transaction();
+                transaction.TransactionDate = DateTime.Now;
+                transaction.Amount = amount;
+                transaction.TypeOfTransaction = TransactionType.Credit;
+                transaction.Description = "Deposit to the account";
+                transaction.AccountNumber = accountNumber;
+
+                db.Transactions.Add(transaction);
+                db.SaveChanges();
+            }
+            
+        }
+
         public static void PrintAllAccounts(string emailAddress)
         {
             //a is jsut a variable and can be called whatever you want

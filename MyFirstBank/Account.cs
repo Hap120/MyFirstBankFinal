@@ -19,6 +19,8 @@ namespace MyFirstBank
             [Key]
             public int AccountNumber { get; private set; }
 
+            public string AccountName { get; set; }
+
             public string EmailAddress { get; set; }
 
             public decimal Balance { get; private set; }

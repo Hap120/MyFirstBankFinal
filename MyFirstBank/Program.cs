@@ -33,7 +33,15 @@ namespace MyFirstBank
                             Console.WriteLine($"The balance in my account - {myAccount.AccountNumber} is {myAccount.Balance:C} ");
                             break;
                         case "2":
-                            break;
+                        Bank.PrintAllAccounts(emailAddress);
+                        Console.Write("Select an accountnumber: ");
+                        var accountNum = Convert.ToInt32(Console.ReadLine());
+
+                        Console.Write("Enter an amount to deposit: ");
+                        var amount = Convert.ToDecimal(Console.ReadLine());
+
+                        Bank.Deposit(accountNum, amount);
+                        break;
                         case "3":
                             break;
                        case "4":
