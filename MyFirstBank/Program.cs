@@ -20,7 +20,8 @@ namespace MyFirstBank
                     Console.WriteLine("2. Deposit");
                     Console.WriteLine("3. Withdraw");
                 Console.WriteLine("4. Print all accounts");
-                    Console.WriteLine("Please select one of the options above");
+                Console.WriteLine("5. Print all transacations");
+                Console.WriteLine("Please select one of the options above");
                     var choice = Console.ReadLine();
                     switch (choice)
                     {
@@ -33,27 +34,76 @@ namespace MyFirstBank
                             Console.WriteLine($"The balance in my account - {myAccount.AccountNumber} is {myAccount.Balance:C} ");
                             break;
                         case "2":
-                        Bank.PrintAllAccounts(emailAddress);
+                        try
+                        {
+                            PrintAllAccounts(emailAddress);
+                            Console.Write("Select an accountnumber: ");
+                            var accountNum2 = Convert.ToInt32(Console.ReadLine());
+
+                            Console.Write("Enter an amount to deposit: ");
+                            var amount2 = Convert.ToDecimal(Console.ReadLine());
+                            Bank.Deposit(accountNum2, amount2);
+                        }
+                        catch(FormatException)
+                        {
+                            Console.WriteLine("Invalid value");
+                        }
+                        catch (ArgumentOutOfRangeException ox)
+                        {
+                            Console.WriteLine(ox.Message + "Please try again");
+                        }
+                        catch (ArgumentException ax)
+                        {
+                            Console.WriteLine(ax.Message + "Please try again");
+                        }
+                        
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Error: " + ex.Message);
+                        }
+                        break;
+                        case "3":
+                        PrintAllAccounts(emailAddress);
                         Console.Write("Select an accountnumber: ");
                         var accountNum = Convert.ToInt32(Console.ReadLine());
 
                         Console.Write("Enter an amount to deposit: ");
                         var amount = Convert.ToDecimal(Console.ReadLine());
 
-                        Bank.Deposit(accountNum, amount);
+                        Bank.Withdraw(accountNum, amount);
                         break;
-                        case "3":
-                            break;
                        case "4":
-                        Bank.PrintAllAccounts(emailAddress);
+                        PrintAllAccounts(emailAddress);
                          break;
-                        default:
+                       case "5":
+                        PrintAllAccounts(emailAddress);
+                        Console.Write("Select an accountnumber: ");
+                        accountNum = Convert.ToInt32(Console.ReadLine());
+                        var transactions = Bank.GetAllTransactions(accountNum);
+                        foreach (var transaction in transactions)
+                        {
+                            Console.WriteLine($"Id: {transaction.TransactionNumber}, Description: {transaction.Description}, Type: {transaction.TypeOfTransaction}, Amount: {transaction.Amount}, Date: {transaction.TransactionDate}");
+                        }
+                        break;
+                       default:
                             Console.WriteLine("Sorry option not available");
                             break;
                     }
                 }
 
             }
+
+        static void PrintAllAccounts(string emailAddress)
+        {
+            var accounts = Bank.GetAllAccounts(emailAddress);
+
+            foreach (var account in accounts)
+            {
+                Console.WriteLine($"Account number: {account.AccountNumber}, Balance: {account.Balance:C}");
+            }
+        }
+
+        
         }
     }
 
