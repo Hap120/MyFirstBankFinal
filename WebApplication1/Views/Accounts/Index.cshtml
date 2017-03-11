@@ -1,11 +1,5 @@
 ﻿@model IEnumerable<MyFirstBank.Account>
 
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
-
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -20,6 +14,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Balance)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeOfAccount)
+        </th>
         <th></th>
     </tr>
 
@@ -33,6 +30,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Balance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeOfAccount)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.AccountNumber }) |

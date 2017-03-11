@@ -14,12 +14,13 @@ namespace MyFirstBank
 
         public static string Name { get; set; }
 
-        public static Account CreateAccount(string emailAdddress, decimal amount, AccountTypes typeOfAccount)
+        public static Account CreateAccount(string accountName, string emailAdddress, decimal amount, AccountTypes typeOfAccount)
         {
 
             var db = new BankModel();
             var account = new Account(emailAdddress, amount);
             account.TypeOfAccount = typeOfAccount;
+            account.AccountName = accountName;
             db.Accounts.Add(account);
             db.SaveChanges();
             return account;
