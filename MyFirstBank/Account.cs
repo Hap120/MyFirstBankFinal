@@ -8,6 +8,11 @@ using System.Threading.Tasks;
 
 namespace MyFirstBank
 {
+    public enum AccountTypes
+    {
+        Checking,
+        Savings
+    }
         public class Account
         {
             #region Statics
@@ -25,7 +30,9 @@ namespace MyFirstBank
 
             public decimal Balance { get; private set; }
 
-            public virtual ICollection<Transaction> Transactions { get; set; }
+        public AccountTypes TypeOfAccount { get; set; }
+
+        public virtual ICollection<Transaction> Transactions { get; set; }
         #endregion
 
         #region Methods
